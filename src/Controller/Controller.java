@@ -1,38 +1,68 @@
 package Controller;
 
 import java.util.*;
-import Modules.Utilizador;
-import Modules.Atividade;
+
+import Modules.Atividade.Atividade;
+import Modules.Utilizador.Utilizador;
+import Modules.Utilizador.UtilizadorProfissional;
 import Modules.PlanoTreino;
+import Modules.RegistroAtividade;
 
 // Classe do controlador
 public class Controller {
     List<Utilizador> utilizadores;
-    List<Atividade> atividades;
+    public List<Atividade> atividades;
+    List<RegistroAtividade> registros;
+    List<PlanoTreino> planos;
     Date dataAtual;
 
     public Controller() {
         utilizadores = new ArrayList<>();
         atividades = new ArrayList<>();
+        registros = new ArrayList<>();
+        planos = new ArrayList<>();
         dataAtual = new Date();
     }
 
-    public void criarUtilizador(String codigo, String nome, String morada, String email, double frequenciaCardiacaMedia,
-            String tipo) {
-        // Implementar a lógica para criar um novo Utilizador
-
-        Utilizador utilizador = new Utilizador(codigo, nome, morada, email, frequenciaCardiacaMedia, tipo);
+    public void adicionarUtilizador(Utilizador utilizador) {
         utilizadores.add(utilizador);
-        System.out.println(utilizadores.toString());
-
     }
 
-    void adicionarAtividade(Atividade atividade, PlanoTreino planoTreino, int iteracoes) {
-        // Implementar a lógica para adicionar uma Atividade a um PlanoTreino
+    public void adicionarAtividade(Atividade atividade) {
+        atividades.add(atividade);
     }
 
-    void avancarTempo(int dias) {
-        // Implementar a lógica para avançar o tempo
+    public void adicionarRegistro(RegistroAtividade registro) {
+        registros.add(registro);
+    }
+
+    // obter lista de utilizadores com o mesmo nome
+    public List<Utilizador> obterUtilizadoresPorNome(String nome) {
+        List<Utilizador> utilizadoresPorNome = new ArrayList<>();
+        for (Utilizador utilizador : utilizadores) {
+            System.out.println(utilizador.getNome());
+            if (utilizador.getNome().equals(nome)) {
+                utilizadoresPorNome.add(utilizador);
+            }
+        }
+        return utilizadoresPorNome;
+    }
+
+    public void listarAtividades() {
+        for (Atividade atividade : atividades) {
+            // Imprime o nome de cada atividade
+            System.out.println("Atividade: " + atividade.getNome());
+        }
+    }
+
+    public Atividade encontrarAtividadePorNome(String nome) {
+        for (Atividade atividade : atividades) {
+            if (atividade.getNome().equals(nome)) {
+                System.out.println("Atividade encontrada: " + atividade.getNome() + "\n");
+                return atividade;
+            }
+        }
+        return null;
     }
 
     // Outros métodos para as operações que um usuário pode realizar

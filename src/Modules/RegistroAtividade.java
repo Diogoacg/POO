@@ -2,6 +2,9 @@ package Modules;
 
 import java.util.Date;
 
+import Modules.Atividade.Atividade;
+import Modules.Utilizador.Utilizador;
+
 public class RegistroAtividade {
     Utilizador utilizador;
     Atividade atividade;

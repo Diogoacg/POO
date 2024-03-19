@@ -2,6 +2,8 @@ package Modules;
 
 import java.util.Map;
 
+import Modules.Atividade.Atividade;
+
 public class Recordes {
     Map<Atividade, RegistroAtividade> recordes;
 

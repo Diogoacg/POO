@@ -2,6 +2,9 @@ package Modules;
 
 import java.util.*;
 
+import Modules.Atividade.Atividade;
+import Modules.Utilizador.Utilizador;
+
 public class PlanoTreino {
     Utilizador utilizador;
     Date data;
@@ -13,7 +16,8 @@ public class PlanoTreino {
         this.atividades = new HashMap<>();
     }
 
-    // Método para adicionar uma atividade ao plano de treino
+    // Método para adicionar uma atividade ao plano de treino e o número de
+    // iterações
     public void adicionarAtividade(Atividade atividade, int iteracoes) {
         atividades.put(atividade, iteracoes);
     }

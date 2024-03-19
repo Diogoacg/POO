@@ -4,6 +4,9 @@ import java.util.Date;
 
 import java.util.List;
 
+import Modules.Atividade.Atividade;
+import Modules.Utilizador.Utilizador;
+
 public class Simulacao {
     Date dataAtual;
     List<Utilizador> utilizadores;
