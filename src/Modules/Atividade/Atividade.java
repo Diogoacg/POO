@@ -84,4 +84,8 @@ public abstract class Atividade {
     // abstract method
     public abstract double calcularCalorias(Utilizador utilizador);
 
+    public void guardarAtividade() {
+        // do nothing
+    }
+
 }

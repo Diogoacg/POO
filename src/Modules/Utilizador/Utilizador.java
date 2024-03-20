@@ -2,6 +2,7 @@ package Modules.Utilizador;
 
 import Modules.Atividade.Atividade;
 
+import java.time.LocalDate;
 import java.util.*;
 
 // Classe abstrata para Utilizador
@@ -11,7 +12,7 @@ public abstract class Utilizador {
     private String morada;
     private String email;
     private double frequenciaCardiacaMedia;
-    private List<Atividade> atividades;
+    private Map<Integer, Atividade> atividades;
 
     // Método abstrato para calcular o fator multiplicativo, a ser implementado nas
     // subclasses
@@ -24,7 +25,7 @@ public abstract class Utilizador {
         this.morada = morada;
         this.email = email;
         this.frequenciaCardiacaMedia = frequenciaCardiacaMedia;
-        this.atividades = new ArrayList<>();
+        this.atividades = new HashMap<Integer, Atividade>();
     }
 
     public Utilizador(Utilizador utilizador) {
@@ -80,12 +81,17 @@ public abstract class Utilizador {
         this.frequenciaCardiacaMedia = frequenciaCardiacaMedia;
     }
 
-    public List<Atividade> getAtividades() {
+    public Map<Integer, Atividade> getAtividades() {
         return atividades;
     }
 
-    public void setAtividades(List<Atividade> atividades) {
+    public void setAtividades(Map<Integer, Atividade> atividades) {
         this.atividades = atividades;
+    }
+
+    // Método para adicionar uma atividade
+    public void addAtividade(Atividade atividade) {
+        this.atividades.put(atividade.hashCode(), atividade);
     }
 
     // toString
@@ -93,7 +99,6 @@ public abstract class Utilizador {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("Código: ").append(this.codigo).append("\n");
         s.append("Nome: ").append(this.nome).append("\n");
         s.append("Morada: ").append(this.morada).append("\n");
         s.append("Email: ").append(this.email).append("\n");
@@ -111,8 +116,8 @@ public abstract class Utilizador {
         if (o == null || this.getClass() != o.getClass())
             return false;
         Utilizador utilizador = (Utilizador) o;
-        return this.codigo.equals(utilizador.getCodigo()) && this.nome.equals(utilizador.getNome())
-                && this.morada.equals(utilizador.getMorada()) && this.email.equals(utilizador.getEmail())
+        return this.nome.equals(utilizador.getNome()) && this.morada.equals(utilizador.getMorada())
+                && this.email.equals(utilizador.getEmail())
                 && this.frequenciaCardiacaMedia == utilizador.getFrequenciaCardiacaMedia()
                 && this.atividades.equals(utilizador.getAtividades());
     }

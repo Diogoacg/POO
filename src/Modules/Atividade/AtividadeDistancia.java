@@ -1,5 +1,9 @@
 package Modules.Atividade;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import Modules.Utilizador.Utilizador;
 
 public class AtividadeDistancia extends Atividade {
@@ -40,6 +44,7 @@ public class AtividadeDistancia extends Atividade {
     public double calcularCalorias(Utilizador utilizador) {
         // temos que usar a "super" para chamar o método da classe mãe
         return 0;
+
     }
 
 }

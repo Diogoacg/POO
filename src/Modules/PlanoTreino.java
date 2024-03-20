@@ -16,6 +16,12 @@ public class PlanoTreino {
         this.atividades = new HashMap<>();
     }
 
+    public PlanoTreino(PlanoTreino planoTreino) {
+        this.utilizador = planoTreino.getUtilizador();
+        this.data = planoTreino.getData();
+        this.atividades = planoTreino.getAtividades();
+    }
+
     // Método para adicionar uma atividade ao plano de treino e o número de
     // iterações
     public void adicionarAtividade(Atividade atividade, int iteracoes) {
@@ -53,6 +59,11 @@ public class PlanoTreino {
             calorias += entry.getKey().calcularCalorias(utilizador) * entry.getValue();
         }
         return calorias;
+    }
+
+    // clone
+    public PlanoTreino clone() {
+        return new PlanoTreino(this);
     }
 
 }
