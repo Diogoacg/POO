@@ -47,14 +47,15 @@ public class GestorUtilizadores implements Serializable {
     }
 
     public String listarUtilizadores() {
-        return this.catalogo_utilizadores.values().stream().map(Utilizador::toString).collect(Collectors.joining("\n"));
+        return this.catalogo_utilizadores.values().stream()
+                .map(Utilizador::clone)
+                .map(Utilizador::toString)
+                .collect(Collectors.joining("\n"));
     }
-
     // retorna todos os utilizadores com o mesmo nome
 
     public List<Utilizador> getUtilizadoresPorNome(String nome) {
         return this.catalogo_utilizadores.values().stream()
-                .filter(utilizador -> utilizador.getNome().equals(nome))
-                .collect(Collectors.toList());
+                .filter(utilizador -> utilizador.clone().getNome().equals(nome)).collect(Collectors.toList());
     }
 }

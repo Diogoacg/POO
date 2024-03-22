@@ -40,6 +40,9 @@ public class GestorAtividades implements Serializable {
     }
 
     public String listarAtividades() {
-        return this.catalogo_atividades.values().stream().map(Atividade::toString).collect(Collectors.joining("\n"));
+        return this.catalogo_atividades.values().stream()
+                .map(Atividade::clone)
+                .map(Atividade::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

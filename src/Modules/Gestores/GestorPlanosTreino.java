@@ -41,7 +41,9 @@ public class GestorPlanosTreino implements Serializable {
     }
 
     public String listarPlanosTreino() {
-        return this.catalogo_planosTreino.values().stream().map(PlanoTreino::toString)
+        return this.catalogo_planosTreino.values().stream()
+                .map(PlanoTreino::clone)
+                .map(PlanoTreino::toString)
                 .collect(Collectors.joining("\n"));
     }
 }
