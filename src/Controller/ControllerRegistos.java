@@ -64,7 +64,7 @@ public class ControllerRegistos {
                                 Double.parseDouble(tokens[3]),
                                 Double.parseDouble(tokens[4]),
                                 Boolean.parseBoolean(tokens[5]),
-                                Double.parseDouble(tokens[5]));
+                                Double.parseDouble(tokens[6]));
                         break;
                     case "DistanciaAltimetria":
                         atividade = new AtividadeDistanciaAltimetria(

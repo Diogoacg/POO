@@ -93,11 +93,154 @@ public class Menu {
 
                     break;
                 // ... outros casos ...
+                case 2:
+                    // adicionar uma atividade
+                    // private String nome;
+                    // private double tempo;
+                    // private double frequenciaCardiacaMedia;
+                    // private boolean isHard;
+                    System.out.println("Nome: ");
+                    String nomeAtividade = input.nextLine();
+                    System.out.println("Tempo: ");
+                    double tempo = input.nextDouble();
+                    System.out.println("Frequência Cardíaca Média: ");
+                    double frequenciaCardiacaMedia = input.nextDouble();
+                    System.out.println("Dificuldade: ");
+                    System.out.println("1. Fácil");
+                    System.out.println("2. Difícil");
+                    System.out.print("Escolha uma opção: ");
+                    int dificuldade = input.nextInt();
+                    boolean isHard = false;
+                    if (dificuldade == 2) {
+                        isHard = true;
+                    }
+                    // tipo de atividade, 1 - Distancia, 2 - DistanciaAltimetria, 3 - Repeticoes, 4
+                    // - RepeticoesPeso
+
+                    System.out.println("Tipo de atividade: ");
+                    System.out.println("1. Distancia");
+                    System.out.println("2. DistanciaAltimetria");
+                    System.out.println("3. Repeticoes");
+                    System.out.println("4. RepeticoesPeso");
+                    System.out.print("Escolha uma opção: ");
+                    int tipoAtividade = input.nextInt();
+                    input.nextLine(); // Consume newline left-over´
+                    String tipoAtivividadeString = "";
+                    String strInputAtividade = "";
+
+                    switch (tipoAtividade) {
+                        case 1:
+                            // Distancia
+                            tipoAtivividadeString = "Distancia";
+                            // perguntar ao utilizador a distancia
+                            System.out.println("Distancia: ");
+                            double distancia = input.nextDouble();
+                            // criar string para ser lida pelo controller
+                            // Inserir Atividade;Distancia;Corrida;60;120;false;10
+                            StringBuilder sbA = new StringBuilder();
+                            sbA.append("Inserir Atividade;");
+                            sbA.append(tipoAtivividadeString).append(";");
+                            sbA.append(nomeAtividade).append(";");
+                            sbA.append(tempo).append(";");
+                            sbA.append(frequenciaCardiacaMedia).append(";");
+                            sbA.append(isHard).append(";");
+                            sbA.append(distancia);
+
+                            strInputAtividade = sbA.toString();
+                            break;
+                        case 2:
+                            // DistanciaAltimetria
+                            tipoAtivividadeString = "DistanciaAltimetria";
+                            // perguntar ao utilizador a distancia e a altimetria
+                            System.out.println("Distancia: ");
+                            double distanciaA = input.nextDouble();
+                            System.out.println("Altimetria: ");
+                            double altimetria = input.nextDouble();
+                            // criar string para ser lida pelo controller
+                            // Inserir Atividade;DistanciaAltimetria;Corrida;60;120;false;10;20
+                            StringBuilder sbB = new StringBuilder();
+                            sbB.append("Inserir Atividade;");
+                            sbB.append(tipoAtivividadeString).append(";");
+                            sbB.append(nomeAtividade).append(";");
+                            sbB.append(tempo).append(";");
+                            sbB.append(frequenciaCardiacaMedia).append(";");
+                            sbB.append(isHard).append(";");
+                            sbB.append(distanciaA).append(";");
+                            sbB.append(altimetria);
+
+                            strInputAtividade = sbB.toString();
+
+                            break;
+                        case 3:
+
+                            // Repeticoes
+                            tipoAtivividadeString = "Repeticoes";
+                            // perguntar ao utilizador a distancia e a altimetria
+                            System.out.println("Repetições: ");
+                            int repeticoes = input.nextInt();
+                            // criar string para ser lida pelo controller
+                            // Inserir Atividade;Repeticoes;Flexoes;60;120;false;10
+                            StringBuilder sbC = new StringBuilder();
+                            sbC.append("Inserir Atividade;");
+                            sbC.append(tipoAtivividadeString).append(";");
+                            sbC.append(nomeAtividade).append(";");
+                            sbC.append(tempo).append(";");
+                            sbC.append(frequenciaCardiacaMedia).append(";");
+                            sbC.append(isHard).append(";");
+                            sbC.append(repeticoes);
+
+                            strInputAtividade = sbC.toString();
+
+                            break;
+                        case 4:
+                            // RepeticoesPeso
+                            tipoAtivividadeString = "RepeticoesPeso";
+                            // perguntar ao utilizador a distancia e a altimetria
+                            System.out.println("Repetições: ");
+                            int repeticoesPeso = input.nextInt();
+                            System.out.println("Peso: ");
+                            double peso = input.nextDouble();
+                            // criar string para ser lida pelo controller
+                            // Inserir Atividade;RepeticoesPeso;Flexoes;60;120;false;10;20
+                            StringBuilder sbD = new StringBuilder();
+                            sbD.append("Inserir Atividade;");
+                            sbD.append(tipoAtivividadeString).append(";");
+                            sbD.append(nomeAtividade).append(";");
+                            sbD.append(tempo).append(";");
+                            sbD.append(frequenciaCardiacaMedia).append(";");
+                            sbD.append(isHard).append(";");
+                            sbD.append(repeticoesPeso).append(";");
+                            sbD.append(peso);
+
+                            strInputAtividade = sbD.toString();
+                            break;
+
+                        default:
+                            System.out.println("Tipo inválido");
+                            break;
+                    }
+
+                    System.out.println("Input: " + strInputAtividade);
+
+                    this.Controller.collectDadosLine(strInputAtividade.split(";", 0));
+
                 case 13:
                     // Aqui você pode adicionar o código para listar utilizadores
                     System.out.println("Lista de utilizadores:");
                     this.Controller.collectDadosLine("Listar Utilizadores".split(";", 0));
                     break;
+
+                case 14:
+                    // Aqui você pode adicionar o código para listar atividades
+                    System.out.println("Lista de atividades:");
+                    this.Controller.collectDadosLine("Listar Atividades".split(";", 0));
+                    break;
+                case 15:
+                    // Aqui você pode adicionar o código para listar planos de treino
+                    System.out.println("Lista de planos de treino:");
+                    this.Controller.collectDadosLine("Listar PlanosTreino".split(";", 0));
+                    break;
+
                 case 19:
                     continuar = false;
                     break;
