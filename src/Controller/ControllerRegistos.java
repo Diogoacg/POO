@@ -7,6 +7,7 @@ import Modules.PlanoTreino;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.time.LocalDate;
 
 public class ControllerRegistos {
@@ -100,7 +101,16 @@ public class ControllerRegistos {
                 break;
 
             case Controller.INSERT_PLANOTREINO:
-                // tokens[1] = nome do utilizador, encontra o utilizador pelo nome
+                // tokens[1] = código do utilizador
+                // tokens[2] = data
+                // tokens[3..?] = código de atividades
+                int tam = tokens.length;
+                Map<String,Integer> a = new Map<String,Integer>();
+
+                for (int i = 3; i <= tam; i++){
+                    a.
+                }
+
                 Date date = new Date();
 
                 PlanoTreino planoTreino = new PlanoTreino(

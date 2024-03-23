@@ -42,9 +42,9 @@ public class AtividadeDistancia extends Atividade {
 
     @Override
     public double calcularCalorias(Utilizador utilizador) {
-        // temos que usar a "super" para chamar o método da classe mãe
-        return 0;
+        double fm = utilizador.calcularFatorMultiplicativo();
 
+        return 1;
     }
 
 }

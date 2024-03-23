@@ -16,7 +16,7 @@ public abstract class Utilizador {
 
     // Método abstrato para calcular o fator multiplicativo, a ser implementado nas
     // subclasses
-    abstract double calcularFatorMultiplicativo();
+    public abstract double calcularFatorMultiplicativo();
 
     // construtores
     public Utilizador(String codigo, String nome, String morada, String email, double frequenciaCardiacaMedia) {

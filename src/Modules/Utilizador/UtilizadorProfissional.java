@@ -3,8 +3,8 @@ package Modules.Utilizador;
 public class UtilizadorProfissional extends Utilizador {
     @Override
     double calcularFatorMultiplicativo() {
-        // Implementar a fórmula para calcular o fator multiplicativo
-        return 0;
+        double fcm = utilizador.getFrequenciaCardiacaMedia();
+        return fcm*0.012;
     }
 
     // construtores

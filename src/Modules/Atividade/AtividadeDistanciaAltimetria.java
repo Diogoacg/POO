@@ -55,7 +55,7 @@ public class AtividadeDistanciaAltimetria extends Atividade {
 
     @Override
     public double calcularCalorias(Utilizador utilizador) {
-        // temos que usar a "super" para chamar o método da classe mãe
+        
         return 0;
     }
 

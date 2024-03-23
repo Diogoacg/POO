@@ -8,9 +8,9 @@ import Modules.Atividade.Atividade;
 import Modules.Utilizador.Utilizador;
 
 public class Simulacao {
-    Date dataAtual;
-    List<Utilizador> utilizadores;
-    List<Atividade> atividades;
+    private Date dataAtual;
+    private List<Utilizador> utilizadores;
+    private List<Atividade> atividades;
 
     void avancarTempo(int dias) {
         // Implementar a lógica para avançar o tempo
