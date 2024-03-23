@@ -1,12 +1,7 @@
 package Modules;
 
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import Controller.Controller;
-import Modules.Atividade.Atividade;
-import Modules.Utilizador.Utilizador;
 
 public class Menu {
     private Controller Controller;
@@ -228,31 +223,7 @@ public class Menu {
                     System.out.println("Input: " + strInputAtividade);
 
                     this.Controller.collectDadosLine(strInputAtividade.split(";", 0));
-                case 3:
-                    // inserir um plano de treino
-                    // private Utilizador utilizador;
-                    // private Date data;
-                    // private Map<Atividade, Integer> atividades;
-                    System.out.println("Nome do utilizador: ");
-                    String utilizador = input.nextLine();
-                    List<Utilizador> users = gestor.getUtilizadoresPorNome(utilizador);
-                    Utilizador usercod = null;
-                    if(users.size() > 1){
-                        for (Utilizador util : users) {
-                            util.toString();
-                        }
-                        System.out.println("Qual é o código de utilizador: ");
-                        String cod = input.nextLine();
-                        usercod = gestor.getUtilizador(cod);
-                    }else if(users.size() < 1){
-                        System.out.println("Não existem utilizadores com esse nome. ");
-                        break;
-                    }else{
-                        usercod = users.get(0);
-                    }
-                    System.out.println("Data: ");
-                    Date data = input.nextDouble();
-                    System.out.println("Atividades: ");
+
                 case 13:
                     // Aqui você pode adicionar o código para listar utilizadores
                     System.out.println("Lista de utilizadores:");
