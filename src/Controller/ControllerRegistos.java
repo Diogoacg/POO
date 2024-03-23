@@ -107,6 +107,8 @@ public class ControllerRegistos {
                 int tam = tokens.length;
                 Map<String,Integer> a = new Map<String,Integer>();
 
+                
+
                 for (int i = 3; i <= tam; i++){
                     a.
                 }

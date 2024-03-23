@@ -6,35 +6,35 @@ import Modules.Atividade.Atividade;
 import Modules.Utilizador.Utilizador;
 
 public class PlanoTreino {
-    Utilizador utilizador;
-    Date data;
-    Map<Atividade, Integer> atividades; // Mapeia atividades para o número de iterações
+    private String codUtilizador;
+    private Date data;
+    private Map<String, Integer> atividades; // Mapeia atividades para o número de iterações
 
-    public PlanoTreino(Utilizador utilizador, Date data) {
-        this.utilizador = utilizador;
+    public PlanoTreino(String codUser, Date data, Map<String,Integer> as) {
+        this.codUtilizador = codUser;
         this.data = data;
-        this.atividades = new HashMap<>();
+        this.atividades = as;
     }
 
     public PlanoTreino(PlanoTreino planoTreino) {
-        this.utilizador = planoTreino.getUtilizador();
+        this.codUtilizador = planoTreino.getUtilizador();
         this.data = planoTreino.getData();
         this.atividades = planoTreino.getAtividades();
     }
 
     // Método para adicionar uma atividade ao plano de treino e o número de
     // iterações
-    public void adicionarAtividade(Atividade atividade, int iteracoes) {
+    public void adicionarAtividade(String atividade, int iteracoes) {
         atividades.put(atividade, iteracoes);
     }
 
     // Métodos get e set para cada atributo
-    public Utilizador getUtilizador() {
-        return utilizador;
+    public String getUtilizador() {
+        return codUtilizador;
     }
 
-    public void setUtilizador(Utilizador utilizador) {
-        this.utilizador = utilizador;
+    public void setUtilizador(String utilizador) {
+        this.codUtilizador = utilizador;
     }
 
     public Date getData() {
@@ -45,18 +45,18 @@ public class PlanoTreino {
         this.data = data;
     }
 
-    public Map<Atividade, Integer> getAtividades() {
+    public Map<String, Integer> getAtividades() {
         return atividades;
     }
 
-    public void setAtividades(Map<Atividade, Integer> atividades) {
+    public void setAtividades(Map<String, Integer> atividades) {
         this.atividades = atividades;
     }
 
     public double calcularCalorias() {
         double calorias = 0;
         for (Map.Entry<Atividade, Integer> entry : atividades.entrySet()) {
-            calorias += entry.getKey().calcularCalorias(utilizador) * entry.getValue();
+            calorias += entry.getKey().calcularCalorias(codUtilizador) * entry.getValue();
         }
         return calorias;
     }
