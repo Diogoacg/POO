@@ -1,6 +1,8 @@
 package Controller;
 
 import Modules.Gestores.Gestor;
+import Modules.Utilizador.Utilizador;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -43,10 +45,10 @@ public class Controller {
     public void fillTabela() {
         this.tabela.put("Inserir Utilizador", Controller.INSERT_UTILIZADOR);
         this.tabela.put("Inserir Atividade", Controller.INSERT_ATIVIDADE);
-        this.tabela.put("Inserir PlanoTreino", Controller.INSERT_PLANOTREINO);
+        this.tabela.put("Inserir Plano de Treino", Controller.INSERT_PLANOTREINO);
         this.tabela.put("Remover Utilizador", Controller.REMOVE_UTILIZADOR);
         this.tabela.put("Remover Atividade", Controller.REMOVE_ATIVIDADE);
-        this.tabela.put("Remover PlanoTreino", Controller.REMOVE_PLANOTREINO);
+        this.tabela.put("Remover Plano de Treino", Controller.REMOVE_PLANOTREINO);
         this.tabela.put("Atualizar Utilizador", Controller.UPDATE_UTILIZADOR);
         this.tabela.put("Atualizar Atividade", Controller.UPDATE_ATIVIDADE);
         this.tabela.put("Atualizar PlanoTreino", Controller.UPDATE_PLANOTREINO);
@@ -92,8 +94,8 @@ public class Controller {
                 case Controller.GET_UTILIZADOR:
                 case Controller.GET_ATIVIDADE:
                 case Controller.GET_PLANOTREINO:
-                    ControllerRegistos.getRegisto(gestor, tokens, this.getCodigo(tokens[0]));
-                    break;
+                    // ControllerRegistos.getRegisto(gestor, tokens, this.getCodigo(tokens[0]));
+                    // break;
 
                 case Controller.LIST_UTILIZADORES:
                 case Controller.LIST_ATIVIDADES:
@@ -111,5 +113,19 @@ public class Controller {
                 System.out.println("Erro: " + e.getMessage());
             }
         }
+    }
+
+    public Utilizador getUtilizador(String email) {
+        // Implementar a lógica para obter um registo
+        // obter um utilizador pelo email
+        try {
+
+            Utilizador utilizador = gestor.getUtilizadorPorEmail(email);
+            System.out.println(utilizador);
+            return utilizador;
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+        return null;
     }
 }

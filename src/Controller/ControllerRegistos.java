@@ -6,7 +6,11 @@ import Modules.Atividade.*;
 import Modules.PlanoTreino;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class ControllerRegistos {
@@ -24,7 +28,7 @@ public class ControllerRegistos {
                                 tokens[5],
                                 Double.parseDouble(tokens[6]));
                         break;
-                    case "PraticanteOcasional":
+                    case "Ocasional":
                         utilizador = new UtilizadorPraticanteOcasional(
                                 tokens[2],
                                 tokens[3],
@@ -100,13 +104,42 @@ public class ControllerRegistos {
                 break;
 
             case Controller.INSERT_PLANOTREINO:
-                // tokens[1] = nome do utilizador, encontra o utilizador pelo nome
-                Date date = new Date();
+                // tokens[1] = codigoUtilizador
+                // tokens[2] = data em string
+                // tokens[3..?] = atividades em (codigoAtividade, iteracoes) separadas por ponto
+                // e virgula
+                // transformar a string em data pela util data
 
-                PlanoTreino planoTreino = new PlanoTreino(
-                        gestor.getUtilizador(Integer.parseInt(tokens[1])),
-                        date);
+                System.out.println(tokens[1]);
+
+                Utilizador utilizadorPlano = gestor.getUtilizador(Integer.parseInt(tokens[1]));
+
+                DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                Date data = formatter.parse(tokens[2]);
+                System.out.println(data);
+
+                // atividades em (codigoAtividade, iteracoes) separadas por ponto e virgula
+                // enquanto houver tokens para ler insere no mapa de atividades
+                // (codigoAtividade, iteracoes)
+
+                Map<Atividade, Integer> atividades = new HashMap<>();
+                for (int i = 3; i < tokens.length; i++) {
+                    String[] atividadePlano = tokens[i].split(",");
+                    System.out.println(atividadePlano[0]);
+                    System.out.println(atividadePlano[1]);
+                    Atividade actividade = gestor.getAtividadePorNome(atividadePlano[0]);
+                    System.out.println(actividade);
+                    atividades.put(actividade, Integer.parseInt(atividadePlano[1]));
+                    System.out.println(atividades);
+                }
+
+                System.out.println(atividades);
+
+                PlanoTreino planoTreino = new PlanoTreino(utilizadorPlano, data, atividades);
                 gestor.addPlanoTreino(planoTreino);
+
+                System.out.println("Plano de treino adicionado com sucesso " + planoTreino);
+
                 break;
         }
     }
@@ -131,8 +164,22 @@ public class ControllerRegistos {
         // Implementar a lógica para atualizar um registo
     }
 
-    public static void getRegisto(Gestor gestor, String[] tokens, int flag) {
+    public static Utilizador getUtilizador(Gestor gestor, String email) throws Exception {
         // Implementar a lógica para obter um registo
+        // obter um utilizador pelo email
+
+        Utilizador utilizador = gestor.getUtilizadorPorEmail(email);
+        System.out.println(utilizador);
+        return utilizador;
+        // case Controller.GET_ATIVIDADE:
+        // Atividade atividade = gestor.getAtividade(Integer.parseInt(tokens[1]));
+        // System.out.println(atividade);
+        // break;
+        // case Controller.GET_PLANOTREINO:
+        // PlanoTreino planoTreino = gestor.getPlanoTreino(Integer.parseInt(tokens[1]));
+        // System.out.println(planoTreino);
+        // break;
+
     }
 
     public static void listRegistos(Gestor gestor, int flag) {

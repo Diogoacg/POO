@@ -50,6 +50,10 @@ public class Gestor {
         return gestorUtilizadores.getUtilizador(codigoUtilizador);
     }
 
+    public Utilizador getUtilizadorPorEmail(String email) throws Exception {
+        return gestorUtilizadores.getUtilizadorPorEmail(email);
+    }
+
     public String listarUtilizadores() {
         return gestorUtilizadores.listarUtilizadores();
     }
@@ -91,6 +95,11 @@ public class Gestor {
     public List<Utilizador> getUtilizadoresPorNome(String nome) {
         return gestorUtilizadores.getUtilizadoresPorNome(nome);
 
+    }
+
+    // get atividade por nome
+    public Atividade getAtividadePorNome(String nome) throws Exception {
+        return gestorAtividades.getAtividadePorNome(nome);
     }
 
 }

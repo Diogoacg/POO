@@ -19,6 +19,7 @@ public class UtilizadorAmador extends Utilizador {
     // clone
 
     public UtilizadorAmador clone() {
+        Utilizador.USER_AUTO_INCREMENT--;
         return new UtilizadorAmador(this);
     }
 

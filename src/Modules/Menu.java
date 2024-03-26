@@ -1,7 +1,9 @@
 package Modules;
 
+import java.util.Map;
 import java.util.Scanner;
 import Controller.Controller;
+import Modules.Utilizador.Utilizador;
 
 public class Menu {
     private Controller Controller;
@@ -224,6 +226,40 @@ public class Menu {
 
                     this.Controller.collectDadosLine(strInputAtividade.split(";", 0));
 
+                    break;
+                case 3:
+                    // adicionar um plano de treino
+                    System.out.println("Email de utilizador: ");
+                    String emailUtilizador = input.nextLine();
+                    // pelo controller ir buscar o utilizador
+
+                    Utilizador utilizador = this.Controller.getUtilizador(emailUtilizador);
+                    if (utilizador == null) {
+                        System.out.println("Utilizador não encontrado");
+                        break;
+                    }
+                    int codigoUtilizador = utilizador.getCodigo();
+                    // lista de atividades Map<Atividade, Integer> atividades; // Mapeia atividades
+                    // para o número de iterações
+                    System.out.println("Atividades Disponiveis: ");
+                    this.Controller.collectDadosLine("Listar Atividades".split(";", 0));
+                    System.out.println(
+                            "Que atividades quer adicionar ao plano de treino? E as respetivas iterações (atividade1, iteracoes1; atividade2, iteracoes2; ...)");
+                    String atividades = input.nextLine();
+
+                    // data do plano de treino
+                    System.out.println("Data do plano de treino: ");
+                    String data = input.nextLine();
+                    // criar mapa de atividades e iterações
+                    StringBuilder sbPlano = new StringBuilder();
+                    sbPlano.append("Inserir Plano de Treino;");
+                    sbPlano.append(codigoUtilizador).append(";");
+                    sbPlano.append(data).append(";");
+                    sbPlano.append(atividades);
+
+                    System.out.println("Input: " + sbPlano.toString());
+                    System.err.println("Input: " + sbPlano.toString().split(";", 0));
+                    this.Controller.collectDadosLine(sbPlano.toString().split(";", 0));
                 case 13:
                     // Aqui você pode adicionar o código para listar utilizadores
                     System.out.println("Lista de utilizadores:");
@@ -238,7 +274,7 @@ public class Menu {
                 case 15:
                     // Aqui você pode adicionar o código para listar planos de treino
                     System.out.println("Lista de planos de treino:");
-                    this.Controller.collectDadosLine("Listar PlanosTreino".split(";", 0));
+                    this.Controller.collectDadosLine("Listar Planos de Treino".split(";", 0));
                     break;
 
                 case 19:
