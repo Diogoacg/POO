@@ -57,7 +57,7 @@ public class Controller {
         this.tabela.put("Obter PlanoTreino", Controller.GET_PLANOTREINO);
         this.tabela.put("Listar Utilizadores", Controller.LIST_UTILIZADORES);
         this.tabela.put("Listar Atividades", Controller.LIST_ATIVIDADES);
-        this.tabela.put("Listar PlanosTreino", Controller.LIST_PLANOSTREINO);
+        this.tabela.put("Listar Planos de Treino", Controller.LIST_PLANOSTREINO);
         this.tabela.put("Calcular Calorias", Controller.CALCULAR_CALORIAS);
         this.tabela.put("Registrar Atividade", Controller.REGISTRAR_ATIVIDADE);
         this.tabela.put("Obter Recordes", Controller.GET_RECORDS);
