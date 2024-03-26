@@ -15,25 +15,40 @@ import java.time.LocalDate;
 
 public class GestorUtilizadores implements Serializable {
 
-    private static final long serialVersionUID = 8L;
-
-    private Map<Integer, Utilizador> catalogo_utilizadores;
+    private static final long serialVersionUID = 5L;
+    private List<Utilizador> catalogo_utilizadores;
+    // adicionar utilizador variavel de incrementação para o codigo do utilizador
 
     public GestorUtilizadores() {
-        this.catalogo_utilizadores = new HashMap<Integer, Utilizador>();
+        this.catalogo_utilizadores = new ArrayList<Utilizador>();
     }
 
-    private void lookUpUtilizador(int codigo_utilizador) throws Exception {
-        if (!this.catalogo_utilizadores.containsKey(codigo_utilizador)) {
+    public void lookUpUtilizador(int codigo) throws Exception {
+        if (codigo < 0 || codigo >= this.getSize()) {
             throw new Exception("Utilizador inexistente");
         }
     }
 
+    public void lookupUtilizadorByEmail(String email) throws Exception {
+        if (this.catalogo_utilizadores.stream().filter((x) -> x.getEmail().equals(email)).count() != 1) {
+            throw new Exception("Utilizador inexistente");
+        }
+    }
+
+    // private int getCodigo(String email) throws Exception {
+    // this.lookupUtilizadorByEmail(email);
+    // return this.catalogo_utilizadores.stream().filter((x) ->
+    // x.getEmail().equals(email))
+    // .mapToInt((x) -> x.getCodigo()).sum();
+    // }
+
     public void addUtilizador(Utilizador utilizador) throws Exception {
-        if (this.catalogo_utilizadores.containsKey(utilizador.hashCode())) {
+        if (this.catalogo_utilizadores.stream().filter((x) -> x.getEmail().equals(utilizador.getEmail()))
+                .count() != 0) {
+            GestorUtilizadores.setAutoIncrement(utilizador.getCodigo());
             throw new Exception("Utilizador já inserido");
         }
-        this.catalogo_utilizadores.put(utilizador.hashCode(), utilizador.clone());
+        this.catalogo_utilizadores.add(utilizador.getCodigo(), utilizador.clone());
     }
 
     public Utilizador removeUtilizador(int codigo_utilizador) throws Exception {
@@ -47,7 +62,7 @@ public class GestorUtilizadores implements Serializable {
     }
 
     public String listarUtilizadores() {
-        return this.catalogo_utilizadores.values().stream()
+        return this.catalogo_utilizadores.stream()
                 .map(Utilizador::clone)
                 .map(Utilizador::toString)
                 .collect(Collectors.joining("\n"));
@@ -55,7 +70,26 @@ public class GestorUtilizadores implements Serializable {
     // retorna todos os utilizadores com o mesmo nome
 
     public List<Utilizador> getUtilizadoresPorNome(String nome) {
-        return this.catalogo_utilizadores.values().stream()
+        return this.catalogo_utilizadores.stream()
                 .filter(utilizador -> utilizador.clone().getNome().equals(nome)).collect(Collectors.toList());
     }
+
+    // retorna utilizador pelo email unico
+    public Utilizador getUtilizadorPorEmail(String email) {
+        return this.catalogo_utilizadores.stream()
+                .filter(utilizador -> utilizador.clone().getEmail().equals(email)).findFirst().orElse(null);
+    }
+
+    public static int getAutoIncrement() {
+        return Utilizador.getAutoIncrement();
+    }
+
+    public static void setAutoIncrement(int x) {
+        Utilizador.setAutoIncrement(x);
+    }
+
+    public int getSize() {
+        return this.catalogo_utilizadores.size();
+    }
+
 }

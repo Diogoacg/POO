@@ -10,10 +10,10 @@ public class PlanoTreino {
     Date data;
     Map<Atividade, Integer> atividades; // Mapeia atividades para o número de iterações
 
-    public PlanoTreino(Utilizador utilizador, Date data) {
+    public PlanoTreino(Utilizador utilizador, Date data, Map<Atividade, Integer> atividades) {
         this.utilizador = utilizador;
         this.data = data;
-        this.atividades = new HashMap<>();
+        this.atividades = atividades;
     }
 
     public PlanoTreino(PlanoTreino planoTreino) {
@@ -64,6 +64,12 @@ public class PlanoTreino {
     // clone
     public PlanoTreino clone() {
         return new PlanoTreino(this);
+    }
+
+    // toString
+    @Override
+    public String toString() {
+        return "Plano de Treino:\n" + "Utilizador: " + utilizador + "\nData: " + data + "\nAtividades: " + atividades;
     }
 
 }

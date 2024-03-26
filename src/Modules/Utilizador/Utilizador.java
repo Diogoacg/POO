@@ -7,7 +7,11 @@ import java.util.*;
 
 // Classe abstrata para Utilizador
 public abstract class Utilizador {
-    private String codigo;
+
+    private static final long serialVersionUID = 5L;
+    public static int USER_AUTO_INCREMENT = 0;
+
+    private int codigo;
     private String nome;
     private String morada;
     private String email;
@@ -20,7 +24,7 @@ public abstract class Utilizador {
 
     // construtores
     public Utilizador(String codigo, String nome, String morada, String email, double frequenciaCardiacaMedia) {
-        this.codigo = codigo;
+        this.codigo = Utilizador.USER_AUTO_INCREMENT++;
         this.nome = nome;
         this.morada = morada;
         this.email = email;
@@ -41,11 +45,11 @@ public abstract class Utilizador {
     public abstract Utilizador clone();
 
     // getters e setters
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
@@ -89,6 +93,14 @@ public abstract class Utilizador {
         this.atividades = atividades;
     }
 
+    public static int getAutoIncrement() {
+        return Utilizador.USER_AUTO_INCREMENT;
+    }
+
+    public static int setAutoIncrement(int x) {
+        return Utilizador.USER_AUTO_INCREMENT = x;
+    }
+
     // Método para adicionar uma atividade
     public void addAtividade(Atividade atividade) {
         this.atividades.put(atividade.hashCode(), atividade);
@@ -99,6 +111,7 @@ public abstract class Utilizador {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
+        s.append("Código: ").append(this.codigo).append("\n");
         s.append("Nome: ").append(this.nome).append("\n");
         s.append("Morada: ").append(this.morada).append("\n");
         s.append("Email: ").append(this.email).append("\n");
@@ -116,7 +129,8 @@ public abstract class Utilizador {
         if (o == null || this.getClass() != o.getClass())
             return false;
         Utilizador utilizador = (Utilizador) o;
-        return this.nome.equals(utilizador.getNome()) && this.morada.equals(utilizador.getMorada())
+        return this.codigo == utilizador.getCodigo() &&
+                this.nome.equals(utilizador.getNome()) && this.morada.equals(utilizador.getMorada())
                 && this.email.equals(utilizador.getEmail())
                 && this.frequenciaCardiacaMedia == utilizador.getFrequenciaCardiacaMedia()
                 && this.atividades.equals(utilizador.getAtividades());
