@@ -4,35 +4,6 @@ Object-Oriented Programming
 Tiago Matos Guedes (A97369)
 Diogo Afonso Costa Gonçalves (A101919)
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Classes](#classes)
-   2.1 [Fitness App](#fitness-app)
-   2.2 [Activities](#activities)
-       2.2.1 [Track Running](#track-running)
-       2.2.2 [Swimming](#swimming)
-       2.2.3 [Mountain Running](#mountain-running)
-       2.2.4 [Mountain Biking](#mountain-biking)
-       2.2.5 [Push-Ups](#push-ups)
-       2.2.6 [Sit-Ups](#sit-ups)
-       2.2.7 [Bench Press](#bench-press)
-       2.2.8 [Leg Press](#leg-press)
-   2.3 [Users](#users)
-       2.3.1 [Professional Users](#professional-users)
-       2.3.2 [Amateur Users](#amateur-users)
-       2.3.3 [Occasional Users](#occasional-users)
-   2.4 [Training Plans](#training-plans)
-   2.5 [Statistics](#statistics)
-   2.6 [Records](#records)
-   2.7 [Controller](#controller)
-       2.7.1 [Records Controller](#records-controller)
-       2.7.2 [Statistics Controller](#statistics-controller)
-   2.8 [Manager](#manager)
-   2.9 [Menu](#menu)
-3. [Functionalities](#functionalities)
-4. [Class Diagram](#class-diagram)
-5. [Conclusion](#conclusion)
-
 ## Introduction
 As part of the Object-Oriented Programming course, we were assigned a practical project involving the development of a platform for managing physical activities and health. The main objective of this platform is to provide users with an interactive experience where they can monitor and manage their physical activities, as well as track their progress towards fitness and well-being goals.
 
