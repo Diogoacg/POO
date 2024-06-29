@@ -22,16 +22,6 @@ public class GestorAtividades implements Serializable {
         }
     }
 
-    // get atividade por nome
-    public Atividade getAtividadePorNome(String nome) throws Exception {
-        for (Atividade atividade : this.catalogo_atividades.values()) {
-            if (atividade.getNome().equals(nome)) {
-                return atividade.clone();
-            }
-        }
-        throw new Exception("Atividade inexistente");
-    }
-
     public void addAtividade(Atividade atividade) throws Exception {
         if (this.catalogo_atividades.containsKey(atividade.hashCode())) {
             throw new Exception("Atividade já inserida");
@@ -47,6 +37,11 @@ public class GestorAtividades implements Serializable {
     public Atividade getAtividade(int codigo_atividade) throws Exception {
         this.lookUpAtividade(codigo_atividade);
         return this.catalogo_atividades.get(codigo_atividade).clone();
+    }
+
+    public void updateAtividade(Atividade atividade) throws Exception {
+        this.lookUpAtividade(atividade.hashCode());
+        this.catalogo_atividades.put(atividade.hashCode(), atividade.clone());
     }
 
     public String listarAtividades() {

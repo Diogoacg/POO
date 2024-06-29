@@ -1,15 +1,11 @@
 package Modules.Gestores;
 
-import Modules.Atividade.Atividade;
+import Modules.Estatisticas;
 import Modules.Utilizador.Utilizador;
-import Modules.Gestores.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.HashMap;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -51,6 +47,12 @@ public class GestorUtilizadores implements Serializable {
         this.catalogo_utilizadores.add(utilizador.getCodigo(), utilizador.clone());
     }
 
+    // update utilizador
+    public void updateUtilizador(Utilizador utilizador) throws Exception {
+        this.lookUpUtilizador(utilizador.getCodigo());
+        this.catalogo_utilizadores.set(utilizador.getCodigo(), utilizador.clone());
+    }
+
     public Utilizador removeUtilizador(int codigo_utilizador) throws Exception {
         this.lookUpUtilizador(codigo_utilizador);
         return this.catalogo_utilizadores.remove(codigo_utilizador).clone();
@@ -90,6 +92,26 @@ public class GestorUtilizadores implements Serializable {
 
     public int getSize() {
         return this.catalogo_utilizadores.size();
+    }
+
+    // obter lista de utilizadores
+    public List<Utilizador> getUtilizadores() {
+        return this.catalogo_utilizadores.stream().map(Utilizador::clone).collect(Collectors.toList());
+    }
+
+    // estatisticas
+    public Utilizador utilizadorComMaisCaloriasGastas(LocalDate inicio, LocalDate fim) {
+
+        return Estatisticas.utilizadorComMaisCalorias(getUtilizadores(), inicio, fim).clone();
+    }
+
+    public Utilizador utilizadorComMaisAtividades(LocalDate inicio, LocalDate fim) {
+        return Estatisticas.utilizadorComMaisAtividades(this.catalogo_utilizadores, inicio, fim).clone();
+    }
+
+    // atividade mais realizada
+    public String atividadeMaisRealizada() {
+        return Estatisticas.atividadeMaisRealizada(this.catalogo_utilizadores);
     }
 
 }

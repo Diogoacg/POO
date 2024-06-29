@@ -4,9 +4,12 @@ import Modules.Gestores.Gestor;
 import Modules.Utilizador.Utilizador;
 
 import java.util.Map;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Controller {
+    // dia de simulação
+    public LocalDate currentDate;
     public static final int INSERT_UTILIZADOR = 0;
     public static final int INSERT_ATIVIDADE = 1;
     public static final int INSERT_PLANOTREINO = 2;
@@ -23,14 +26,17 @@ public class Controller {
     public static final int LIST_ATIVIDADES = 13;
     public static final int LIST_PLANOSTREINO = 14;
     public static final int CALCULAR_CALORIAS = 15;
-    public static final int REGISTRAR_ATIVIDADE = 16;
-    public static final int GET_RECORDS = 17;
+    public static final int REGISTAR_ATIVIDADE = 16;
+    public static final int LIST_RECORDS = 17;
+    public static final int AVANCAR_TEMPO = 18;
+    public static final int ESTATISTICA = 19;
 
     private Map<String, Integer> tabela = new HashMap<>();
     private Gestor gestor;
 
     public Controller(Gestor gestor) {
         this.gestor = gestor;
+        this.currentDate = gestor.currentDate;
         fillTabela();
     }
 
@@ -59,8 +65,10 @@ public class Controller {
         this.tabela.put("Listar Atividades", Controller.LIST_ATIVIDADES);
         this.tabela.put("Listar Planos de Treino", Controller.LIST_PLANOSTREINO);
         this.tabela.put("Calcular Calorias", Controller.CALCULAR_CALORIAS);
-        this.tabela.put("Registrar Atividade", Controller.REGISTRAR_ATIVIDADE);
-        this.tabela.put("Obter Recordes", Controller.GET_RECORDS);
+        this.tabela.put("Registar Atividade", Controller.REGISTAR_ATIVIDADE);
+        this.tabela.put("Listar Recordes", Controller.LIST_RECORDS);
+        this.tabela.put("Avançar no Tempo", Controller.AVANCAR_TEMPO);
+        this.tabela.put("Estatistica", Controller.ESTATISTICA);
     }
 
     private int getCodigo(String identificador) {
@@ -100,17 +108,26 @@ public class Controller {
                 case Controller.LIST_UTILIZADORES:
                 case Controller.LIST_ATIVIDADES:
                 case Controller.LIST_PLANOSTREINO:
+                case Controller.LIST_RECORDS:
                     ControllerRegistos.listRegistos(gestor, this.getCodigo(tokens[0]));
                     break;
 
-                case Controller.CALCULAR_CALORIAS:
-                case Controller.REGISTRAR_ATIVIDADE:
+                case Controller.REGISTAR_ATIVIDADE:
                     ControllerRegistos.registarAtividade(gestor, tokens, this.getCodigo(tokens[0]));
                     break;
+
+                case Controller.AVANCAR_TEMPO:
+                    ControllerRegistos.avancarTempo(gestor, tokens, this.getCodigo(tokens[0]));
+                    break;
+
+                case Controller.ESTATISTICA:
+                    ControllerEstatisticas.getEstatistica(gestor, tokens, this.getCodigo(tokens[0]));
+                    break;
             }
+
         } catch (Exception e) {
             if (tokens.length != 0 && tokens[0].length() > 0) {
-                System.out.println("Erro: " + e.getMessage());
+                System.err.println("Erro: " + e.getMessage() + "\n");
             }
         }
     }
@@ -121,10 +138,9 @@ public class Controller {
         try {
 
             Utilizador utilizador = gestor.getUtilizadorPorEmail(email);
-            System.out.println(utilizador);
             return utilizador;
         } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            System.err.println("Erro: " + e.getMessage() + "\n");
         }
         return null;
     }

@@ -1,35 +1,23 @@
 package Modules.Atividade;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import Modules.Utilizador.Utilizador;
 
-public abstract class Atividade {
-    private String nome;
+public abstract class Atividade implements Serializable {
     private double tempo;
-    private double frequenciaCardiacaMedia;
     private boolean isHard;
 
     // constructors
-    public Atividade(String nome, double tempo, double frequenciaCardiacaMedia, boolean isHard) {
-        this.nome = nome;
+    public Atividade(double tempo, double frequenciaCardiacaMedia) {
         this.tempo = tempo;
-        this.frequenciaCardiacaMedia = frequenciaCardiacaMedia;
-        this.isHard = isHard;
+        this.isHard = false;
     }
 
     public Atividade(Atividade atividade) {
-        this.nome = atividade.getNome();
         this.tempo = atividade.getTempo();
-        this.frequenciaCardiacaMedia = atividade.getFrequenciaCardiacaMedia();
         this.isHard = atividade.isHard();
-    }
-
-    // getters and setters
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public double getTempo() {
@@ -38,14 +26,6 @@ public abstract class Atividade {
 
     public void setTempo(double tempo) {
         this.tempo = tempo;
-    }
-
-    public double getFrequenciaCardiacaMedia() {
-        return frequenciaCardiacaMedia;
-    }
-
-    public void setFrequenciaCardiacaMedia(double frequenciaCardiacaMedia) {
-        this.frequenciaCardiacaMedia = frequenciaCardiacaMedia;
     }
 
     public boolean isHard() {
@@ -59,8 +39,11 @@ public abstract class Atividade {
     // toString
     @Override
     public String toString() {
-        return "Atividade [frequenciaCardiacaMedia=" + frequenciaCardiacaMedia + ", isHard=" + isHard + ", nome=" + nome
-                + ", tempo=" + tempo + "]";
+        return "\n------------------------------------------\n"+
+                "Atividade : \n" +
+                "É difícil : " + isHard + "\n" +
+                "Tempo = " + tempo + "\n" +
+                "------------------------------------------\n";
     }
 
     // equals
@@ -74,18 +57,19 @@ public abstract class Atividade {
             return false;
         }
         Atividade atividade = (Atividade) o;
-        return frequenciaCardiacaMedia == atividade.frequenciaCardiacaMedia && isHard == atividade.isHard
-                && nome.equals(atividade.nome) && tempo == atividade.tempo;
+        return isHard == atividade.isHard
+                && tempo == atividade.tempo;
     }
 
     // Clone
     public abstract Atividade clone();
 
     // abstract method
-    public abstract double calcularCalorias(Utilizador utilizador);
+    public abstract double calcularCalorias(Utilizador utilizador, int frequenciaCardiacaMedia);
 
-    public void guardarAtividade() {
-        // do nothing
+    @Override
+    public int hashCode() {
+        return Objects.hash(isHard, tempo);
     }
 
 }

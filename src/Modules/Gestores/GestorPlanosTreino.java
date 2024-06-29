@@ -5,6 +5,7 @@ import Modules.PlanoTreino;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.HashMap;
+import java.util.List;
 import java.io.Serializable;
 
 public class GestorPlanosTreino implements Serializable {
@@ -15,6 +16,16 @@ public class GestorPlanosTreino implements Serializable {
 
     public GestorPlanosTreino() {
         this.catalogo_planosTreino = new HashMap<Integer, PlanoTreino>();
+    }
+
+    public Map<Integer, PlanoTreino> getCatalogoPlanosTreino() {
+        return this.catalogo_planosTreino;
+    }
+
+    public List<PlanoTreino> getPlanosTreinoList() {
+        return this.catalogo_planosTreino.values().stream()
+                .map(PlanoTreino::clone)
+                .collect(Collectors.toList());
     }
 
     private void lookUpPlanoTreino(int codigo_planoTreino) throws Exception {

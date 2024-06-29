@@ -1,16 +1,18 @@
 package Modules;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 import Modules.Atividade.Atividade;
 import Modules.Utilizador.Utilizador;
 
-public class PlanoTreino {
-    Utilizador utilizador;
-    Date data;
-    Map<Atividade, Integer> atividades; // Mapeia atividades para o número de iterações
+public class PlanoTreino implements Serializable {
+    private Utilizador utilizador;
+    private LocalDate data;
+    private Map<Atividade, Integer> atividades; // Mapeia atividades para o número de iterações
 
-    public PlanoTreino(Utilizador utilizador, Date data, Map<Atividade, Integer> atividades) {
+    public PlanoTreino(Utilizador utilizador, LocalDate data, Map<Atividade, Integer> atividades) {
         this.utilizador = utilizador;
         this.data = data;
         this.atividades = atividades;
@@ -37,11 +39,11 @@ public class PlanoTreino {
         this.utilizador = utilizador;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
@@ -53,10 +55,11 @@ public class PlanoTreino {
         this.atividades = atividades;
     }
 
-    public double calcularCalorias() {
+    public double calcularCaloriasEstimativa() {
         double calorias = 0;
         for (Map.Entry<Atividade, Integer> entry : atividades.entrySet()) {
-            calorias += entry.getKey().calcularCalorias(utilizador) * entry.getValue();
+            calorias += entry.getKey().calcularCalorias(utilizador, (int) utilizador.getFrequenciaCardiacaMedia())
+                    * entry.getValue();
         }
         return calorias;
     }
@@ -69,7 +72,27 @@ public class PlanoTreino {
     // toString
     @Override
     public String toString() {
-        return "Plano de Treino:\n" + "Utilizador: " + utilizador + "\nData: " + data + "\nAtividades: " + atividades;
+        return "------------------------------------------\n" +
+               "Plano de Treino:\n" + "Utilizador: " + utilizador + "\nData: " + data + "\nAtividades: " + atividades + "\n" +
+               "------------------------------------------\n";
+    }
+
+    // equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || this.getClass() != o.getClass())
+            return false;
+        PlanoTreino planoTreino = (PlanoTreino) o;
+        return this.utilizador.equals(planoTreino.getUtilizador()) && this.data.equals(planoTreino.getData())
+                && this.atividades.equals(planoTreino.getAtividades());
+    }
+
+    // hashCode
+    @Override
+    public int hashCode() {
+        return Objects.hash(utilizador, data, atividades);
     }
 
 }

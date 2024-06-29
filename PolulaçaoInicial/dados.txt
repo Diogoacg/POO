@@ -1,0 +1,23 @@
+Inserir Utilizador;Profissional;892;Tiago;asdas;esdasd;90
+Inserir Utilizador;Ocasional;1423;Ricardo;asdasd;asdasd;80
+Inserir Utilizador;Amador;123;Diogo;dsfgd;efsfff;70
+Inserir Atividade;Natacao;60;120;10
+Inserir Atividade;Corrida em Pista;60;120;10
+Inserir Atividade;Corrida no Monte;60;120;10;20
+Inserir Atividade;Bicicleta no Monte;60;120;10;20
+Inserir Atividade;Flexoes;60;120;10
+Inserir Atividade;Abdominais;60;120;10
+Inserir Atividade;Prensa;60;120;10;40
+Inserir Atividade;Supino;60;120;10;20
+Inserir Plano de Treino;0;02/05/2024;-1545291279,2;1940450092,1;
+Inserir Plano de Treino;1;02/05/2024;-173589700,2;-1676461941,1;-847128209,2;-720661003,1;
+Inserir Plano de Treino;2;02/05/2024;-777135918,2;-401770512,1;-847128209,2;-720661003,1;-847128209,2;
+Registar Atividade;0;-847128209;100
+Registar Atividade;1;-720661003;150
+Registar Atividade;2;-1545291279;80
+Registar Atividade;0;-173589700;100
+Registar Atividade;1;-847128209;130
+Registar Atividade;2;-1676461941;50
+
+
+

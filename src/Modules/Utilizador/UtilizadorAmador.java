@@ -2,9 +2,8 @@ package Modules.Utilizador;
 
 public class UtilizadorAmador extends Utilizador {
     @Override
-    double calcularFatorMultiplicativo() {
-        // Implementar a fórmula para calcular o fator multiplicativo
-        return 0;
+    public double calcularFatorMultiplicativo(int frequenciaCardiacaMedia) {
+        return 0.0059 * frequenciaCardiacaMedia;
     }
 
     // construtores
@@ -19,7 +18,6 @@ public class UtilizadorAmador extends Utilizador {
     // clone
 
     public UtilizadorAmador clone() {
-        Utilizador.USER_AUTO_INCREMENT--;
         return new UtilizadorAmador(this);
     }
 

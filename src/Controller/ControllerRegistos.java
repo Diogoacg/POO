@@ -5,15 +5,15 @@ import Modules.Utilizador.*;
 import Modules.Atividade.*;
 import Modules.PlanoTreino;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ControllerRegistos {
+    public static final String BLUE = "\u001B[34m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
 
     public static void insertRegisto(Gestor gestor, String[] tokens, int flag) throws Exception {
         switch (flag) {
@@ -37,13 +37,6 @@ public class ControllerRegistos {
                                 Double.parseDouble(tokens[6]));
                         break;
                     case "Profissional":
-                        System.out.println(tokens[0]);
-                        System.out.println(tokens[1]);
-                        System.out.println(tokens[2]);
-                        System.out.println(tokens[3]);
-                        System.out.println(tokens[4]);
-                        System.out.println(tokens[5]);
-                        System.out.println(Double.parseDouble(tokens[6]));
                         utilizador = new UtilizadorProfissional(
                                 tokens[2],
                                 tokens[3],
@@ -53,70 +46,105 @@ public class ControllerRegistos {
                         System.err.println(utilizador.getNome());
                         break;
                     default:
-                        throw new Exception("Tipo de utilizador desconhecido: " + tokens[1]);
+                        throw new Exception("Tipo de utilizador desconhecido: \n" + tokens[1]);
                 }
                 gestor.addUtilizador(utilizador);
-                System.out.println("Utilizador adicionado com sucesso" + utilizador.getNome());
+                System.out.println(GREEN + "Utilizador adicionado com sucesso \n" + utilizador.getNome() + BLUE);
                 break;
 
             case Controller.INSERT_ATIVIDADE:
                 Atividade atividade;
                 switch (tokens[1]) {
-                    case "Distancia":
-                        atividade = new AtividadeDistancia(
-                                tokens[2],
+                    case "Natacao":
+                        atividade = new Natacao(
+                                Double.parseDouble(tokens[2]),
+                                Double.parseDouble(tokens[3]),
+                                Double.parseDouble(tokens[4]));
+                        break;
+                    case "Corrida em Pista":
+                        atividade = new CorridaEmPista(
+                                Double.parseDouble(tokens[2]),
+                                Double.parseDouble(tokens[3]),
+                                Double.parseDouble(tokens[4]));
+                        break;
+                    case "Corrida no Monte":
+                        atividade = new CorridaNoMonte(
+                                Double.parseDouble(tokens[2]),
                                 Double.parseDouble(tokens[3]),
                                 Double.parseDouble(tokens[4]),
-                                Boolean.parseBoolean(tokens[5]),
-                                Double.parseDouble(tokens[6]));
+                                Double.parseDouble(tokens[5]));
                         break;
-                    case "DistanciaAltimetria":
-                        atividade = new AtividadeDistanciaAltimetria(
-                                tokens[2],
+                    case "Bicicleta no Monte":
+                        atividade = new BicicletaNoMonte(
+                                Double.parseDouble(tokens[2]),
                                 Double.parseDouble(tokens[3]),
                                 Double.parseDouble(tokens[4]),
-                                Boolean.parseBoolean(tokens[5]),
-                                Double.parseDouble(tokens[6]),
-                                Double.parseDouble(tokens[7]));
+                                Double.parseDouble(tokens[5]));
                         break;
-                    case "Repeticoes":
-                        atividade = new AtividadeRepeticoes(
-                                tokens[2],
+                    case "Flexoes":
+                        atividade = new Flexoes(
+                                Double.parseDouble(tokens[2]),
                                 Double.parseDouble(tokens[3]),
-                                Double.parseDouble(tokens[4]),
-                                Boolean.parseBoolean(tokens[5]),
-                                Integer.parseInt(tokens[6]));
+                                Integer.parseInt(tokens[4]));
                         break;
-                    case "RepeticoesPeso":
-                        atividade = new AtividadeRepeticoesPesos(
-                                tokens[2],
+                    case "Abdominais":
+                        atividade = new Abdominais(
+                                Double.parseDouble(tokens[2]),
                                 Double.parseDouble(tokens[3]),
-                                Double.parseDouble(tokens[4]),
-                                Boolean.parseBoolean(tokens[5]),
-                                Integer.parseInt(tokens[6]),
-                                Double.parseDouble(tokens[7]));
+                                Integer.parseInt(tokens[4]));
                         break;
+                    case "Prensa":
+                        atividade = new Prensa(
+                                Double.parseDouble(tokens[2]),
+                                Double.parseDouble(tokens[3]),
+                                Integer.parseInt(tokens[4]),
+                                Double.parseDouble(tokens[5]));
+                        break;
+                    case "Supino":
+                        atividade = new Supino(
+                                Double.parseDouble(tokens[2]),
+                                Double.parseDouble(tokens[3]),
+                                Integer.parseInt(tokens[4]),
+                                Double.parseDouble(tokens[5]));
+                        break;
+                    // case "DistanciaAltimetria":
+                    // atividade = new AtividadeDistanciaAltimetria(
+                    // tokens[2],
+                    // Double.parseDouble(tokens[3]),
+                    // Double.parseDouble(tokens[4]),
+                    // Boolean.parseBoolean(tokens[5]),
+                    // Double.parseDouble(tokens[6]),
+                    // Double.parseDouble(tokens[7]));
+                    // break;
+                    // case "Repeticoes":
+                    // atividade = new AtividadeRepeticoes(
+                    // tokens[2],
+                    // Double.parseDouble(tokens[3]),
+                    // Double.parseDouble(tokens[4]),
+                    // Boolean.parseBoolean(tokens[5]),
+                    // Integer.parseInt(tokens[6]));
+                    // break;
+                    // case "RepeticoesPeso":
+                    // atividade = new AtividadeRepeticoesPesos(
+                    // tokens[2],
+                    // Double.parseDouble(tokens[3]),
+                    // Double.parseDouble(tokens[4]),
+                    // Boolean.parseBoolean(tokens[5]),
+                    // Integer.parseInt(tokens[6]),
+                    // Double.parseDouble(tokens[7]));
+                    // break;
 
                     default:
-                        throw new Exception("Tipo de atividade desconhecido: " + tokens[1]);
+                        throw new Exception("Tipo de atividade desconhecido: \n" + tokens[1]);
                 }
                 gestor.addAtividade(atividade);
                 break;
 
             case Controller.INSERT_PLANOTREINO:
-                // tokens[1] = codigoUtilizador
-                // tokens[2] = data em string
-                // tokens[3..?] = atividades em (codigoAtividade, iteracoes) separadas por ponto
-                // e virgula
-                // transformar a string em data pela util data
-
-                System.out.println(tokens[1]);
-
                 Utilizador utilizadorPlano = gestor.getUtilizador(Integer.parseInt(tokens[1]));
-
-                DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                Date data = formatter.parse(tokens[2]);
-                System.out.println(data);
+                String dataTexto = tokens[2];
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate data = LocalDate.parse(dataTexto, formatter);
 
                 // atividades em (codigoAtividade, iteracoes) separadas por ponto e virgula
                 // enquanto houver tokens para ler insere no mapa de atividades
@@ -125,20 +153,17 @@ public class ControllerRegistos {
                 Map<Atividade, Integer> atividades = new HashMap<>();
                 for (int i = 3; i < tokens.length; i++) {
                     String[] atividadePlano = tokens[i].split(",");
-                    System.out.println(atividadePlano[0]);
-                    System.out.println(atividadePlano[1]);
-                    Atividade actividade = gestor.getAtividadePorNome(atividadePlano[0]);
-                    System.out.println(actividade);
-                    atividades.put(actividade, Integer.parseInt(atividadePlano[1]));
-                    System.out.println(atividades);
-                }
 
-                System.out.println(atividades);
+                    // obter atividade por codigo
+                    Atividade actividade = gestor.getAtividade(Integer.parseInt(atividadePlano[0]));
+
+                    atividades.put(actividade, Integer.parseInt(atividadePlano[1]));
+                }
 
                 PlanoTreino planoTreino = new PlanoTreino(utilizadorPlano, data, atividades);
                 gestor.addPlanoTreino(planoTreino);
 
-                System.out.println("Plano de treino adicionado com sucesso " + planoTreino);
+                System.out.println(GREEN + "Plano de treino adicionado com sucesso \n" + planoTreino + BLUE);
 
                 break;
         }
@@ -169,23 +194,13 @@ public class ControllerRegistos {
         // obter um utilizador pelo email
 
         Utilizador utilizador = gestor.getUtilizadorPorEmail(email);
-        System.out.println(utilizador);
         return utilizador;
-        // case Controller.GET_ATIVIDADE:
-        // Atividade atividade = gestor.getAtividade(Integer.parseInt(tokens[1]));
-        // System.out.println(atividade);
-        // break;
-        // case Controller.GET_PLANOTREINO:
-        // PlanoTreino planoTreino = gestor.getPlanoTreino(Integer.parseInt(tokens[1]));
-        // System.out.println(planoTreino);
-        // break;
 
     }
 
     public static void listRegistos(Gestor gestor, int flag) {
         switch (flag) {
             case Controller.LIST_UTILIZADORES:
-                System.out.println("Lista de utilizadores:");
                 System.out.println(gestor.listarUtilizadores());
                 break;
             case Controller.LIST_ATIVIDADES:
@@ -194,17 +209,25 @@ public class ControllerRegistos {
             case Controller.LIST_PLANOSTREINO:
                 System.out.println(gestor.listarPlanosTreino());
                 break;
+            case Controller.LIST_RECORDS:
+                System.out.println(gestor.listarRecordes());
+                break;
             default:
-                System.out.println("Flag desconhecida: " + flag);
+                System.out.println("Flag desconhecida: \n" + flag);
         }
     }
 
     // regista uma atividade
     public static void registarAtividade(Gestor gestor, String[] tokens, int flag) throws Exception {
         Utilizador utilizador = gestor.getUtilizador(Integer.parseInt(tokens[1]));
+        // getAtividadePorCodigo
         Atividade atividade = gestor.getAtividade(Integer.parseInt(tokens[2]));
-        Date data = new Date();
-        gestor.registarAtividade(utilizador.hashCode(), atividade.hashCode(), data);
+        LocalDate data = LocalDate.now();
+        gestor.registarAtividade(utilizador.getCodigo(), atividade.hashCode(), data, Integer.parseInt(tokens[3]));
+    }
 
+    public static void avancarTempo(Gestor gestor, String[] tokens, int flag) throws Exception {
+        int dias = Integer.parseInt(tokens[1]);
+        gestor.avancarTempo(dias);
     }
 }

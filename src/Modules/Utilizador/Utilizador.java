@@ -1,12 +1,14 @@
 package Modules.Utilizador;
 
 import Modules.Atividade.Atividade;
+import Modules.Atividade.AtividadeComCaloriasGastas;
 
-import java.time.LocalDate;
 import java.util.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 // Classe abstrata para Utilizador
-public abstract class Utilizador {
+public abstract class Utilizador implements Serializable {
 
     private static final long serialVersionUID = 5L;
     public static int USER_AUTO_INCREMENT = 0;
@@ -16,11 +18,14 @@ public abstract class Utilizador {
     private String morada;
     private String email;
     private double frequenciaCardiacaMedia;
-    private Map<Integer, Atividade> atividades;
+    // mapa de atividades Map<Date, Atividade>
+    private HashMap<LocalDate, List<AtividadeComCaloriasGastas>> atividades;
+
+    private double caloriasGastas;
 
     // Método abstrato para calcular o fator multiplicativo, a ser implementado nas
     // subclasses
-    abstract double calcularFatorMultiplicativo();
+    public abstract double calcularFatorMultiplicativo(int frequenciaCardiacaMedia);
 
     // construtores
     public Utilizador(String codigo, String nome, String morada, String email, double frequenciaCardiacaMedia) {
@@ -28,8 +33,10 @@ public abstract class Utilizador {
         this.nome = nome;
         this.morada = morada;
         this.email = email;
-        this.frequenciaCardiacaMedia = frequenciaCardiacaMedia;
-        this.atividades = new HashMap<Integer, Atividade>();
+        this.frequenciaCardiacaMedia = 0;
+        // lista de atividades List<Atividade>
+        this.atividades = new HashMap<>();
+        this.caloriasGastas = 0;
     }
 
     public Utilizador(Utilizador utilizador) {
@@ -38,7 +45,8 @@ public abstract class Utilizador {
         this.morada = utilizador.getMorada();
         this.email = utilizador.getEmail();
         this.frequenciaCardiacaMedia = utilizador.getFrequenciaCardiacaMedia();
-        this.atividades = utilizador.getAtividades();
+        this.atividades = utilizador.getAtividadesList();
+        this.caloriasGastas = utilizador.getCaloriasGastas();
     }
 
     // clone
@@ -85,11 +93,20 @@ public abstract class Utilizador {
         this.frequenciaCardiacaMedia = frequenciaCardiacaMedia;
     }
 
-    public Map<Integer, Atividade> getAtividades() {
-        return atividades;
+    public double getCaloriasGastas() {
+        return caloriasGastas;
     }
 
-    public void setAtividades(Map<Integer, Atividade> atividades) {
+    public void setCaloriasGastas(double caloriasGastas) {
+        this.caloriasGastas = caloriasGastas;
+    }
+
+    // lista de atividades
+    public HashMap<LocalDate, List<AtividadeComCaloriasGastas>> getAtividadesList() {
+        return this.atividades;
+    }
+
+    public void setAtividades(HashMap<LocalDate, List<AtividadeComCaloriasGastas>> atividades) {
         this.atividades = atividades;
     }
 
@@ -102,8 +119,11 @@ public abstract class Utilizador {
     }
 
     // Método para adicionar uma atividade
-    public void addAtividade(Atividade atividade) {
-        this.atividades.put(atividade.hashCode(), atividade);
+    public void addAtividade(Atividade atividade, LocalDate data, double calorias) {
+        if (!this.atividades.containsKey(data)) {
+            this.atividades.put(data, new ArrayList<>());
+        }
+        this.atividades.get(data).add(new AtividadeComCaloriasGastas(atividade, calorias));
     }
 
     // toString
@@ -117,6 +137,8 @@ public abstract class Utilizador {
         s.append("Email: ").append(this.email).append("\n");
         s.append("Frequência Cardíaca Média: ").append(this.frequenciaCardiacaMedia).append("\n");
         s.append("Atividades: ").append(this.atividades).append("\n");
+        s.append("Calorias Gastas: ").append(this.caloriasGastas).append("\n");
+
         return s.toString();
     }
 
@@ -133,9 +155,14 @@ public abstract class Utilizador {
                 this.nome.equals(utilizador.getNome()) && this.morada.equals(utilizador.getMorada())
                 && this.email.equals(utilizador.getEmail())
                 && this.frequenciaCardiacaMedia == utilizador.getFrequenciaCardiacaMedia()
-                && this.atividades.equals(utilizador.getAtividades());
+                && this.atividades.equals(utilizador.getAtividadesList());
     }
 
     // Métodos extra
+    // hashCode
+    @Override
+    public int hashCode() {
+        return this.email.hashCode();
+    }
 
 }
