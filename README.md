@@ -1,5 +1,5 @@
 # University of Minho
-Object-Oriented Programming
+## Object-Oriented Programming
 
 Tiago Matos Guedes (A97369)
 
