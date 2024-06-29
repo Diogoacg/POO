@@ -135,10 +135,6 @@ This is the class that enables communication between the user and the app, tryin
 - Advance in Time ⇒ Allows the system administrator to advance the current date.
 - Statistics ⇒ Provides various statistics about system usage.
 
-## Class Diagram
-
-![Class Diagram](figure-4-1.png)
-
 ## Conclusion
 
 In conclusion, despite some functionalities not being 100% implemented or exactly as requested, we have a functional project and, in our opinion, well organized. We did our best with our knowledge to make the code as readable as possible and preserving the hierarchy and encapsulation as much as possible. It was overall a project that contributed significantly to our growth in object-oriented programming.
